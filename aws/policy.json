@@ -5,7 +5,7 @@
       "Sid": "ListDeploymentBucket",
       "Effect": "Allow",
       "Action": "s3:ListBucket",
-      "Resource": "arn:aws:s3:::my-financial-tracker-586177432842-ap-south-1-an"
+      "Resource": "arn:aws:s3:::<YOUR_S3_BUCKET_NAME>"
     },
     {
       "Sid": "ManageDeploymentObjects",
@@ -15,7 +15,7 @@
         "s3:PutObject",
         "s3:DeleteObject"
       ],
-      "Resource": "arn:aws:s3:::my-financial-tracker-586177432842-ap-south-1-an/*"
+      "Resource": "arn:aws:s3:::<YOUR_S3_BUCKET_NAME>/*"
     },
     {
       "Sid": "InvalidateCloudFront",
@@ -24,7 +24,7 @@
         "cloudfront:CreateInvalidation",
         "cloudfront:GetInvalidation"
       ],
-      "Resource": "arn:aws:cloudfront::586177432842:distribution/E35L1JOL1QT9HJ"
+      "Resource": "arn:aws:cloudfront::<YOUR_AWS_ACCOUNT_ID>:distribution/<YOUR_CLOUDFRONT_DISTRIBUTION_ID>"
     }
   ]
 }

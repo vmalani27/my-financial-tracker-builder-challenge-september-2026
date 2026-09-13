@@ -23,7 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment
+# Environment & Local Dumps
 .env
 .env.production
 dist.zip
+cf-config.json
+aws/cf-config.json
+*.local.json
