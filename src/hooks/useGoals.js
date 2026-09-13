@@ -62,6 +62,8 @@ export function computeCycle(startDay = 9, refDate = new Date()) {
   const currentDay = Math.min(totalDays, Math.max(1, elapsedDays));
   const daysRemaining = Math.max(0, totalDays - currentDay);
   const isRolloverDue = refDate >= new Date(endDate.getTime() - msPerDay);
+  // Time-gate condition: Active during the last 4 days of the cycle (e.g. 4th through 8th when ending on 8th)
+  const isLockWindowActive = daysRemaining <= 4 || isRolloverDue;
 
   const startStr = startDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
   const endStr = endDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
@@ -72,6 +74,7 @@ export function computeCycle(startDay = 9, refDate = new Date()) {
     totalDays,
     daysRemaining,
     isRolloverDue,
+    isLockWindowActive,
   };
 }
 

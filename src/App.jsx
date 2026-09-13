@@ -184,6 +184,16 @@ export function App() {
               onOpenTransfer={() => setIsTransferOpen(true)}
               onOpenLockCycle={() => setIsLockCycleOpen(true)}
               onNavigateToGoals={() => handleSelectTab('goals')}
+              onNavigateToSpends={() => handleSelectTab('spends')}
+              onNavigateToAccounts={() => {
+                handleSelectTab('settings');
+                try {
+                  localStorage.setItem('settings_sub_page', 'accounts');
+                  const url = new URL(window.location.href);
+                  url.searchParams.set('section', 'accounts');
+                  window.history.replaceState({}, '', url.toString());
+                } catch (e) {}
+              }}
             />
           )}
 
@@ -218,6 +228,7 @@ export function App() {
 
           {activeTab === 'settings' && (
             <Settings
+              cycle={cycle}
               settings={settings}
               goals={goals}
               spends={spends}
