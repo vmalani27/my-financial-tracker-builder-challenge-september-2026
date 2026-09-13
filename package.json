@@ -1,0 +1,35 @@
+{
+  "name": "personal-financial-goal-planner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.654.0",
+    "@aws-sdk/client-s3": "^3.654.0",
+    "@aws-sdk/credential-providers": "^3.654.0",
+    "amazon-cognito-identity-js": "^6.3.12",
+    "canvas-confetti": "^1.9.3",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.11",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.2"
+  }
+}

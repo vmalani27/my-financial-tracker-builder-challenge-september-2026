@@ -1,0 +1,45 @@
+services:
+  # 1. Floci: Ultra-lightweight AWS S3 Cloud Emulator
+  floci:
+    image: floci/floci:latest
+    container_name: floci-s3
+    ports:
+      - "4566:4566"
+    environment:
+      - FLOCI_STORAGE_MODE=hybrid
+      - FLOCI_LOG_LEVEL=info
+    volumes:
+      - floci_data:/app/data
+    restart: unless-stopped
+
+  # 2. Personal Financial Goal Planner (App & S3 Vault Service)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: personal-financial-app
+    ports:
+      # Host port 8080 serves the Vite development server
+      - "8080:5173"
+    volumes:
+      # Changes to source files on the host are picked up by Vite immediately
+      - .:/app
+      - /app/node_modules
+    environment:
+      - PORT=8080
+      - S3_ENDPOINT=http://floci:4566
+      - S3_REGION=us-east-1
+      - S3_BUCKET=financial-vault
+      - S3_KEY=vault/financial-data.dat
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    depends_on:
+      - floci
+    command: sh -c "node server.js & npm run dev -- --host 0.0.0.0"
+    restart: unless-stopped
+
+volumes:
+  # Persistent volume for Floci S3 data
+  floci_data:
+    driver: local
