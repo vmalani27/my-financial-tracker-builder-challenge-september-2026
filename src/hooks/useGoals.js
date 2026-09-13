@@ -10,116 +10,29 @@ import {
 const STORAGE_KEY = 'groww_financial_goals_v2';
 
 const DEFAULT_SETTINGS = {
-  monthlyIncome: 75000,
-  baseSalary: 75000, // alias for backwards compatibility
-  monthlyBudget: 35000, // designated monthly spending budget
-  essentialNeedsTarget: 25000,
-  guiltFreeBudget: 10000,
-  cycleStartDay: 9, // 9th of every month
+  monthlyIncome: 0,
+  baseSalary: 0, // alias for backwards compatibility
+  monthlyBudget: 0, // designated monthly spending budget
+  essentialNeedsTarget: 0,
+  guiltFreeBudget: 0,
+  cycleStartDay: 1,
 };
 
 export const DEFAULT_ACCOUNTS = [
   {
     id: 'acc-1',
-    name: 'HDFC Operating (UPI)',
+    name: 'Primary Account (UPI)',
     type: 'primary',
-    balance: 25000,
+    balance: 0,
     isPrimary: true,
   },
-  {
-    id: 'acc-2',
-    name: 'SBI Liquid Savings',
-    type: 'savings',
-    balance: 60000,
-    isPrimary: false,
-  },
-  {
-    id: 'acc-3',
-    name: 'Groww Mutual Funds',
-    type: 'investment',
-    balance: 150000,
-    isPrimary: false,
-  },
 ];
 
-const INITIAL_GOALS = [
-  {
-    id: 'goal-1',
-    name: 'New Laptop',
-    targetAmount: 85000,
-    savedAmount: 35000,
-    splitPercentage: 25,
-    accountId: 'acc-2', // Stored in SBI Liquid Savings
-    spendsCount: 2,
-  },
-  {
-    id: 'goal-2',
-    name: 'Dream Car',
-    targetAmount: 1200000,
-    savedAmount: 140000,
-    splitPercentage: 35,
-    accountId: 'acc-3', // Stored in Groww MF
-    spendsCount: 3,
-  },
-  {
-    id: 'goal-3',
-    name: 'Plot / Land Investment',
-    targetAmount: 2500000,
-    savedAmount: 50000,
-    splitPercentage: 20,
-    accountId: 'acc-3', // Stored in Groww MF
-    spendsCount: 1,
-  },
-  {
-    id: 'goal-4',
-    name: '5-Year Wealth Cushion',
-    targetAmount: 5000000,
-    savedAmount: 350000,
-    splitPercentage: 20,
-    accountId: 'acc-3', // Stored in Groww MF
-    spendsCount: 0,
-  },
-];
+const INITIAL_GOALS = [];
 
-const INITIAL_SPENDS = [
-  {
-    id: 'sp-1',
-    amount: 12000,
-    type: 'need',
-    category: 'Rent',
-    note: 'Monthly flat rent',
-    goalId: null,
-    date: new Date(Date.now() - 3 * 86400000).toISOString(),
-  },
-  {
-    id: 'sp-2',
-    amount: 3500,
-    type: 'need',
-    category: 'Groceries',
-    note: 'Monthly food and essentials',
-    goalId: null,
-    date: new Date(Date.now() - 2 * 86400000).toISOString(),
-  },
-  {
-    id: 'sp-3',
-    amount: 650,
-    type: 'leisure',
-    category: 'Dining Out',
-    note: 'Weekend lunch with friends',
-    goalId: null,
-    date: new Date(Date.now() - 1 * 86400000).toISOString(),
-  },
-];
+const INITIAL_SPENDS = [];
 
-const INITIAL_INCOME = [
-  {
-    id: 'inc-1',
-    amount: 75000,
-    source: 'salary',
-    note: 'Primary Monthly Salary',
-    date: new Date().toISOString(),
-  },
-];
+const INITIAL_INCOME = [];
 
 // Helper to compute 9th-to-8th cycle dates
 export function computeCycle(startDay = 9, refDate = new Date()) {
@@ -878,20 +791,24 @@ export function useGoals() {
     });
   };
 
-  const resetData = () => {
-    setSettings(DEFAULT_SETTINGS);
-    setGoals(INITIAL_GOALS);
-    setSpends(INITIAL_SPENDS);
-    setIncomes(INITIAL_INCOME);
-    setAccounts(DEFAULT_ACCOUNTS);
-  };
-
   const clearAllData = () => {
+    setSettings(DEFAULT_SETTINGS);
     setGoals([]);
     setSpends([]);
     setIncomes([]);
-    setAccounts([]);
+    setAccounts(DEFAULT_ACCOUNTS);
+    try {
+      localStorage.removeItem(STORAGE_KEY + '_settings');
+      localStorage.removeItem(STORAGE_KEY + '_goals');
+      localStorage.removeItem(STORAGE_KEY + '_spends');
+      localStorage.removeItem(STORAGE_KEY + '_incomes');
+      localStorage.removeItem(STORAGE_KEY + '_accounts');
+      localStorage.removeItem(STORAGE_KEY + '_settlements');
+      localStorage.removeItem('groww_cloud_vault_cache_v2');
+    } catch (e) {}
   };
+
+  const resetData = clearAllData;
 
   return {
     settings,

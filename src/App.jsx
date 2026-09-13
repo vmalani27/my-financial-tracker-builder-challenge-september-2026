@@ -233,8 +233,7 @@ export function App() {
               onExportVaultSnapshot={exportVaultSnapshot}
               onImportVaultSnapshot={importVaultSnapshot}
               onOpenLockCycle={() => setIsLockCycleOpen(true)}
-              resetData={resetData}
-              clearAllData={clearAllData}
+              onClearData={clearAllData}
             />
           )}
         </main>

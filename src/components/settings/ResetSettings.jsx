@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
-import { RotateCcw, Trash2, AlertTriangle, CheckCircle, ShieldAlert } from 'lucide-react';
+import { Trash2, AlertTriangle } from 'lucide-react';
 
 export function ResetSettings({
   goals = [],
   spends = [],
   accounts = [],
-  onResetData,
   onClearData,
   onBack,
 }) {
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
   const [clearInput, setClearInput] = useState('');
-  const [resetSuccess, setResetSuccess] = useState(false);
-
-  const handleReset = () => {
-    if (window.confirm('Reset all financial data back to the default starting template? This will replace your custom goals and accounts.')) {
-      onResetData();
-      setResetSuccess(true);
-      setTimeout(() => {
-        setResetSuccess(false);
-        if (onBack) onBack();
-      }, 1200);
-    }
-  };
 
   const handleClear = () => {
     if (clearInput.trim().toUpperCase() !== 'CLEAR') return;
@@ -55,38 +42,8 @@ export function ResetSettings({
         </div>
       </div>
 
-      {resetSuccess && (
-        <div className="p-3 bg-green-50 border border-green-200 rounded-xl flex items-center gap-2 text-xs text-[#16A34A] font-medium">
-          <CheckCircle className="size-4" />
-          <span>Default template restored!</span>
-        </div>
-      )}
-
       {/* Action Cards */}
       <div className="flex flex-col gap-3">
-        {/* Reset to default template */}
-        <div className="bg-white rounded-2xl p-4 border border-[#E5E5E5] flex flex-col gap-3 shadow-sm">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
-              <RotateCcw className="size-5" />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-sm font-semibold text-[#1A1A1A]">Reset to Sample Data</h3>
-              <p className="text-xs text-[#6B7280] mt-0.5 leading-relaxed">
-                Replace current data with default starter accounts and sample goals.
-              </p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleReset}
-            className="w-full h-10 mt-1 bg-[#F5F5F5] hover:bg-gray-200 text-[#1A1A1A] text-xs font-semibold rounded-xl border border-[#E5E5E5] transition-colors flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <RotateCcw className="size-3.5" />
-            Reset to Defaults
-          </button>
-        </div>
 
         {/* Clear all data */}
         <div className="bg-white rounded-2xl p-4 border border-red-200 flex flex-col gap-3 shadow-sm">
@@ -97,7 +54,7 @@ export function ResetSettings({
             <div className="flex-1">
               <h3 className="text-sm font-semibold text-[#DC2626]">Clear All Data</h3>
               <p className="text-xs text-[#6B7280] mt-0.5 leading-relaxed">
-                Delete all your goals, expenses, and accounts to start completely fresh.
+                Delete all financial data. This action cannot be undone.
               </p>
             </div>
           </div>

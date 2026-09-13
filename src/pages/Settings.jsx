@@ -5,7 +5,7 @@ import {
   Wallet,
   Landmark,
   Cloud,
-  RotateCcw,
+  Trash2,
   CalendarCheck,
 } from 'lucide-react';
 import { BudgetSettings } from '../components/settings/BudgetSettings';
@@ -152,13 +152,12 @@ export function Settings({
           >
             <ArrowLeft className="size-5" />
           </button>
-          <h1 className="text-lg font-semibold text-[#1A1A1A]">Reset Data</h1>
+          <h1 className="text-lg font-semibold text-[#1A1A1A]">Clear All Data</h1>
         </div>
         <ResetSettings
           goals={goals}
           spends={spends}
           accounts={accounts}
-          onResetData={onResetData}
           onClearData={onClearData}
           onBack={() => handleSetSubPage('hub')}
         />
@@ -254,7 +253,7 @@ export function Settings({
           </button>
         )}
 
-        {/* 5. Reset Data */}
+        {/* 5. Clear All Data */}
         <button
           type="button"
           onClick={() => handleSetSubPage('reset')}
@@ -262,11 +261,11 @@ export function Settings({
         >
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-xl bg-red-50 text-[#DC2626] flex items-center justify-center shrink-0">
-              <RotateCcw className="size-5" />
+              <Trash2 className="size-5" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-[#1A1A1A]">Reset Data</div>
-              <div className="text-xs text-[#6B7280] mt-0.5">Restore defaults or clear all</div>
+              <div className="text-sm font-semibold text-[#1A1A1A]">Clear All Data</div>
+              <div className="text-xs text-[#6B7280] mt-0.5">Erase all financial records and start fresh</div>
             </div>
           </div>
           <ChevronRight className="size-5 text-[#9CA3AF] group-hover:text-[#DC2626] group-hover:translate-x-0.5 transition-all shrink-0" />
